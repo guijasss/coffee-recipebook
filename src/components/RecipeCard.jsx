@@ -49,9 +49,40 @@ export default function RecipeCard({ recipe }) {
             <span className="summary-item__value">{recipe.brewTime}</span>
           </div>
         </div>
+        {recipe.grindSetting ? (
+          <div className="summary-item">
+            <div className="summary-item__icon">⚙️</div>
+            <div className="summary-item__data">
+              <span className="summary-item__label">Moagem</span>
+              <span className="summary-item__value">{recipe.grindSetting.clicks}</span>
+            </div>
+          </div>
+        ) : null}
+        {recipe.waterTemperature ? (
+          <div className="summary-item">
+            <div className="summary-item__icon">🌡️</div>
+            <div className="summary-item__data">
+              <span className="summary-item__label">Temperatura</span>
+              <span className="summary-item__value">{recipe.waterTemperature}</span>
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <StepsTable steps={steps} />
+
+      {recipe.highlights?.length ? (
+        <section className="recipe-notes">
+          <h3 className="recipe-notes__title">Dicas importantes</h3>
+          <ul className="recipe-notes__list">
+            {recipe.highlights.map((item) => (
+              <li key={item} className="recipe-notes__item">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -24,6 +24,12 @@ const recipes = [
     },
     totalWater: (C, R) => C * R,
     brewTime: '2:30 – 3:30',
+    grindSetting: {
+      grinder: 'iCoffee M3 Pro',
+      clicks: '21 clicks',
+      note: 'Moagem usada nos métodos baseados em V60.',
+    },
+    waterTemperature: '93–96°C',
   },
   {
     id: 'v60-classic',
@@ -47,6 +53,62 @@ const recipes = [
     },
     totalWater: (C, R) => C * R,
     brewTime: '2:30 – 3:30',
+    grindSetting: {
+      grinder: 'iCoffee M3 Pro',
+      clicks: '21 clicks',
+      note: 'Moagem usada nos métodos baseados em V60.',
+    },
+    waterTemperature: '93–96°C',
+  },
+  {
+    id: 'melitta-103',
+    name: 'Melitta 103',
+    description:
+      'Receita para Melitta 103. Bloom generoso e dois despejos principais para conduzir a extração.',
+    tags: ['pour-over', 'melitta-103', 'video-recipe'],
+    defaults: { coffeeGrams: 20, ratio: 15 },
+    steps: (C, R) => {
+      const W = C * R;
+      const firstPour = 3 * C;
+      const secondTarget = 9 * C;
+      return [
+        {
+          label: 'Primeiro despejo',
+          waterAdd: +firstPour.toFixed(1),
+          cumulative: +firstPour.toFixed(1),
+          duration: '0:00 – 0:30',
+          note: 'Umedecer todo o café de forma uniforme e aguardar a absorção.',
+        },
+        {
+          label: 'Segundo despejo',
+          waterAdd: +(secondTarget - firstPour).toFixed(1),
+          cumulative: +secondTarget.toFixed(1),
+          duration: '0:30 – 1:15',
+          note: 'Movimento circular do centro para as bordas, retornando ao centro.',
+        },
+        {
+          label: 'Terceiro despejo',
+          waterAdd: +(W - secondTarget).toFixed(1),
+          cumulative: +W.toFixed(1),
+          duration: '1:15 – 3:15',
+          note: 'Espiral para resgatar o café das paredes do filtro e levar ao centro.',
+        },
+      ];
+    },
+    totalWater: (C, R) => C * R,
+    brewTime: '3:15 (referência)',
+    grindSetting: {
+      grinder: 'iCoffee M3 Pro',
+      clicks: '24 clicks',
+      note: 'Moagem usada para o Melitta 103.',
+    },
+    waterTemperature: '95°C',
+    highlights: [
+      'Referência do vídeo: 300ml de água para 20g de café.',
+      'Temperatura da água em torno de 95°C.',
+      'Moagem usada no vídeo: 24 clicks no iCoffee M3 Pro.',
+      'Se amargar, moa mais grosso. Se ficar sem sabor ou muito ácido, moa mais fino.',
+    ],
   },
   {
     id: 'french-press',
@@ -68,6 +130,12 @@ const recipes = [
     },
     totalWater: (C, R) => C * R,
     brewTime: '4:00 – 5:00',
+    grindSetting: {
+      grinder: 'iCoffee M3 Pro',
+      clicks: '28 clicks',
+      note: 'Estimativa para moagem grossa, seguindo a recomendação típica de French Press.',
+    },
+    waterTemperature: '93–96°C',
   },
   {
     id: 'aeropress',
@@ -87,6 +155,12 @@ const recipes = [
     },
     totalWater: (C, R) => C * R,
     brewTime: '1:30 – 2:00',
+    grindSetting: {
+      grinder: 'iCoffee M3 Pro',
+      clicks: '20 clicks',
+      note: 'Estimativa para moagem média-fina, seguindo a recomendação típica de AeroPress.',
+    },
+    waterTemperature: '85–96°C',
   },
 ];
 

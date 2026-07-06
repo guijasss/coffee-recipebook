@@ -304,15 +304,13 @@ body::before {
 
 /* ===== Summary Bar ===== */
 .summary-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 1.75rem;
-  flex-wrap: wrap;
 }
 
 .summary-item {
-  flex: 1;
-  min-width: 120px;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -347,7 +345,7 @@ body::before {
 }
 
 .summary-item__value {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
@@ -445,6 +443,37 @@ body::before {
   font-variant-numeric: tabular-nums;
 }
 
+/* ===== Recipe Notes ===== */
+.recipe-notes {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.recipe-notes__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
+}
+
+.recipe-notes__list {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.recipe-notes__item {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
   #root {
@@ -468,7 +497,7 @@ body::before {
   }
 
   .summary-bar {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .step-row {
