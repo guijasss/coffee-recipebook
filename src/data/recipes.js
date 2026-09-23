@@ -1,8 +1,7 @@
 // Coffee Recipe Book — Recipe Data
 // Each recipe has a `steps` function that recalculates values based on dose (g) and ratio
 
-const recipes = [
-  {
+export const v60DoseRecipe = {
     id: 'v60-dose',
     name: 'V60 Dose-Based',
     description:
@@ -30,8 +29,9 @@ const recipes = [
       note: 'Moagem usada nos métodos baseados em V60.',
     },
     waterTemperature: '93–96°C',
-  },
-  {
+};
+
+export const v60ClassicRecipe = {
     id: 'v60-classic',
     name: 'V60 Clássico',
     description:
@@ -59,8 +59,9 @@ const recipes = [
       note: 'Moagem usada nos métodos baseados em V60.',
     },
     waterTemperature: '93–96°C',
-  },
-  {
+};
+
+export const melitta103Recipe = {
     id: 'melitta-103',
     name: 'Melitta 103',
     description:
@@ -109,8 +110,9 @@ const recipes = [
       'Moagem usada no vídeo: 24 clicks no iCoffee M3 Pro.',
       'Se amargar, moa mais grosso. Se ficar sem sabor ou muito ácido, moa mais fino.',
     ],
-  },
-  {
+};
+
+export const frenchPressRecipe = {
     id: 'french-press',
     name: 'French Press',
     description:
@@ -132,12 +134,13 @@ const recipes = [
     brewTime: '4:00 – 5:00',
     grindSetting: {
       grinder: 'iCoffee M3 Pro',
-      clicks: '28 clicks',
+      clicks: '26 clicks',
       note: 'Estimativa para moagem grossa, seguindo a recomendação típica de French Press.',
     },
     waterTemperature: '93–96°C',
-  },
-  {
+};
+
+export const aeroPressRecipe = {
     id: 'aeropress',
     name: 'AeroPress Invertido',
     description:
@@ -161,7 +164,64 @@ const recipes = [
       note: 'Estimativa para moagem média-fina, seguindo a recomendação típica de AeroPress.',
     },
     waterTemperature: '85–96°C',
+};
+
+export const mokaPotRecipe = {
+  id: 'moka-pot',
+  name: 'Moka Pot',
+  description:
+    'Extração concentrada com água pré-aquecida. Moagem média-fina e fogo baixo para preservar doçura, corpo e intensidade sem excesso de amargor.',
+  tags: ['stovetop', 'moka-pot', 'full-body', 'concentrated'],
+  defaults: { coffeeGrams: 18, ratio: 6 },
+  steps: (C, R) => {
+    const W = C * R;
+    return [
+      {
+        label: 'Aquecer a água',
+        waterAdd: W,
+        cumulative: +W.toFixed(1),
+        duration: '0:00 – 2:00',
+        note: 'Aquecer a água até aproximadamente 90–95°C',
+      },
+      {
+        label: 'Adicionar café',
+        waterAdd: 0,
+        cumulative: +W.toFixed(1),
+        duration: '2:00 – 2:20',
+        note: 'Adicionar o café ao filtro e nivelar sem compactar',
+      },
+      {
+        label: 'Extração',
+        waterAdd: 0,
+        cumulative: +W.toFixed(1),
+        duration: '2:20 – 4:00',
+        note: 'Montar a Moka e extrair em fogo baixo até o fluxo começar a clarear',
+      },
+      {
+        label: 'Interromper & servir',
+        waterAdd: 0,
+        cumulative: +W.toFixed(1),
+        duration: '4:00 – 4:30',
+        note: 'Retirar do fogo antes do borbulhamento e resfriar a base brevemente',
+      },
+    ];
   },
+  totalWater: (C, R) => C * R,
+  brewTime: '4:00 – 4:30',
+  grindSetting: {
+    grinder: 'iCoffee M3 Pro',
+    clicks: '18–22 clicks',
+    note: 'Estimativa para moagem média-fina. Ajustar conforme o fluxo e o sabor na xícara.',
+  },
+  waterTemperature: '90–95°C',
+};
+
+const recipes = [
+  v60DoseRecipe,
+  mokaPotRecipe,
+  melitta103Recipe,
+  frenchPressRecipe,
+  aeroPressRecipe,
 ];
 
 export default recipes;
