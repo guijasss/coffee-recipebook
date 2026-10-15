@@ -3,32 +3,52 @@
 
 export const v60DoseRecipe = {
     id: 'v60-dose',
-    name: 'V60 Dose-Based',
+    name: 'V60 — James Hoffmann',
     description:
-      'Receita V60 baseada na dose do café. Os pours são calculados proporcionalmente à massa de café, garantindo consistência independente da dose.',
+      'Método V60 de James Hoffmann, com proporção 1:16 e três despejos calculados conforme a dose de café.',
     tags: ['pour-over', 'v60', 'dose-based'],
-    defaults: { coffeeGrams: 13, ratio: 15 },
+    defaults: { coffeeGrams: 20, ratio: 16 },
     steps: (C, R) => {
       const W = C * R;
-      const B = 2 * C;
-      const T1 = 7.5 * C;
-      const T2 = 11.25 * C;
-      const T3 = W;
+      const firstPour = 3 * C;
+      const secondTarget = Math.max(firstPour, 0.6 * W);
       return [
-        { label: 'Bloom', waterAdd: B, cumulative: B, duration: '0:00 – 0:45', note: 'Molhe todo o café e aguarde' },
-        { label: 'Pour 1', waterAdd: +(T1 - B).toFixed(1), cumulative: +T1.toFixed(1), duration: '0:45 – 1:15', note: 'Despeje em espiral do centro para fora' },
-        { label: 'Pour 2', waterAdd: +(T2 - T1).toFixed(1), cumulative: +T2.toFixed(1), duration: '1:15 – 1:45', note: 'Espiral suave, manter nível d\'água' },
-        { label: 'Pour 3', waterAdd: +(T3 - T2).toFixed(1), cumulative: +T3.toFixed(1), duration: '1:45 – 2:15', note: 'Pour final até completar o volume' },
+        {
+          label: 'Primeiro despejo',
+          waterAdd: +firstPour.toFixed(1),
+          cumulative: +firstPour.toFixed(1),
+          duration: '0:00',
+          note: 'Inicie o cronômetro e despeje 3× a dose de café.',
+        },
+        {
+          label: 'Segundo despejo',
+          waterAdd: +(secondTarget - firstPour).toFixed(1),
+          cumulative: +secondTarget.toFixed(1),
+          duration: '0:40',
+          note: 'Despeje em movimentos circulares até atingir 60% da água total.',
+        },
+        {
+          label: 'Despejo final',
+          waterAdd: +(W - secondTarget).toFixed(1),
+          cumulative: +W.toFixed(1),
+          duration: '1:20',
+          note: 'Despeje o restante no centro, com o bico próximo ao café para evitar muita agitação.',
+        },
       ];
     },
     totalWater: (C, R) => C * R,
-    brewTime: '2:30 – 3:30',
+    brewTime: 'cerca de 3 min',
     grindSetting: {
-      grinder: 'iCoffee M3 Pro',
-      clicks: '21 clicks',
-      note: 'Moagem usada nos métodos baseados em V60.',
+      grinder: 'Moagem média',
+      clicks: 'Média',
+      note: 'Mais grossa se passar muito de 3 min; mais fina se terminar antes.',
     },
-    waterTemperature: '93–96°C',
+    waterTemperature: '90°C (escura), 95°C (média), 100°C (clara)',
+    highlights: [
+      'Escalde bem o filtro antes de adicionar o café.',
+      'Ajuste a moagem pelo tempo total: mais grossa se passar muito de 3 min; mais fina se terminar antes.',
+      'Se o café ficar amargo, moa mais grosso; se ficar sem graça, moa mais fino.',
+    ],
 };
 
 export const v60ClassicRecipe = {
