@@ -5,49 +5,69 @@ export const v60DoseRecipe = {
     id: 'v60-dose',
     name: 'V60 — James Hoffmann',
     description:
-      'Método V60 de James Hoffmann, com proporção 1:16 e três despejos calculados conforme a dose de café.',
+      'A técnica definitiva de V60 de James Hoffmann, com proporção aproximada de 60 g/L (1:17).',
     tags: ['pour-over', 'v60', 'dose-based'],
-    defaults: { coffeeGrams: 20, ratio: 16 },
+    defaults: { coffeeGrams: 30, ratio: 17 },
     steps: (C, R) => {
       const W = C * R;
-      const firstPour = 3 * C;
-      const secondTarget = Math.max(firstPour, 0.6 * W);
+      const bloom = 2 * C;
+      const secondTarget = Math.max(bloom, 0.6 * W);
+      const secondPour = secondTarget - bloom;
+      const finalPour = W - secondTarget;
       return [
         {
-          label: 'Primeiro despejo',
-          waterAdd: +firstPour.toFixed(1),
-          cumulative: +firstPour.toFixed(1),
+          label: 'Prepare o café e o filtro',
+          note: `Moa ${C.toFixed(1)} g de café em moagem média-fina. Enxágue o filtro com água recém-fervida para remover o gosto de papel e pré-aquecer o V60; adicione o café e faça um pequeno poço no centro.`,
+        },
+        {
+          label: 'Inicie o cronômetro e faça a pré-infusão',
+          waterAdd: +bloom.toFixed(1),
+          cumulative: +bloom.toFixed(1),
           duration: '0:00',
-          note: 'Inicie o cronômetro e despeje 3× a dose de café.',
+          note: `Adicione 2× a dose de café (${bloom.toFixed(1)} g de água; não ultrapasse 3×).`,
         },
         {
-          label: 'Segundo despejo',
-          waterAdd: +(secondTarget - firstPour).toFixed(1),
+          label: 'Misture e aguarde a pré-infusão',
+          duration: '0:00 – 0:45',
+          note: 'Gire o V60 até molhar uniformemente todo o pó, sem usar colher. A pré-infusão ajuda a liberar o CO₂ e favorece a extração.',
+        },
+        {
+          label: 'Despejo até 60% da água total',
+          waterAdd: +secondPour.toFixed(1),
           cumulative: +secondTarget.toFixed(1),
-          duration: '0:40',
-          note: 'Despeje em movimentos circulares até atingir 60% da água total.',
+          duration: '0:45 – 1:15',
+          note: `Despeje ${secondPour.toFixed(1)} g em 30 s (cerca de ${(secondPour / 30).toFixed(1)} g/s), até atingir ${secondTarget.toFixed(1)} g no total — 60% de ${W.toFixed(1)} g. Um V60 cheio ajuda a manter a temperatura; pode despejar diretamente sobre o filtro.`,
         },
         {
-          label: 'Despejo final',
-          waterAdd: +(W - secondTarget).toFixed(1),
+          label: 'Complete a água',
+          waterAdd: +finalPour.toFixed(1),
           cumulative: +W.toFixed(1),
-          duration: '1:20',
-          note: 'Despeje o restante no centro, com o bico próximo ao café para evitar muita agitação.',
+          duration: '1:15 – 1:45',
+          note: `Adicione os ${finalPour.toFixed(1)} g restantes em 30 s (cerca de ${(finalPour / 30).toFixed(1)} g/s), até ${W.toFixed(1)} g no total. Despeje um pouco mais devagar que na primeira fase e sem agitar demais.`,
+        },
+        {
+          label: 'Mexa e nivele a cama de café',
+          duration: '1:45',
+          note: 'Mexa uma vez no sentido horário e uma vez no anti-horário para soltar o pó das paredes. Aguarde o nível baixar um pouco e gire suavemente o V60 para nivelar a cama de café.',
+        },
+        {
+          label: 'Aguarde a drenagem',
+          duration: 'até 3:30',
+          note: 'Deixe a água terminar de passar. Temperaturas mais altas aceleram a drenagem, e o papel do filtro também influencia o tempo.',
         },
       ];
     },
     totalWater: (C, R) => C * R,
-    brewTime: 'cerca de 3 min',
+    brewTime: 'até 3:30',
     grindSetting: {
-      grinder: 'Moagem média',
-      clicks: 'Média',
-      note: 'Mais grossa se passar muito de 3 min; mais fina se terminar antes.',
+      grinder: 'Moagem média-fina',
+      clicks: 'Média-fina',
+      note: 'Ajuste conforme o café e o tempo de drenagem.',
     },
-    waterTemperature: '90°C (escura), 95°C (média), 100°C (clara)',
+    waterTemperature: 'Quanto mais quente, melhor (especialmente para torra clara)',
     highlights: [
-      'Escalde bem o filtro antes de adicionar o café.',
-      'Ajuste a moagem pelo tempo total: mais grossa se passar muito de 3 min; mais fina se terminar antes.',
-      'Se o café ficar amargo, moa mais grosso; se ficar sem graça, moa mais fino.',
+      'Proporção aproximada: 60 g/L (1:17, ou 30 g de café para 510 ml de água).',
+      'A meta é terminar a drenagem até 3:30; temperatura e papel do filtro afetam esse tempo.',
     ],
 };
 

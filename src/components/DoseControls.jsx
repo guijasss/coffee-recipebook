@@ -14,7 +14,7 @@ export default function DoseControls({ waterMl, ratio, onWaterChange, onRatioCha
           Água Total
         </label>
         <div className="control-group__value">
-          {waterMl}<span>ml</span>
+          {Math.round(waterMl)}<span>ml</span>
         </div>
         <input
           id="water-slider"
@@ -42,7 +42,7 @@ export default function DoseControls({ waterMl, ratio, onWaterChange, onRatioCha
           className="control-group__slider"
           min={ratioMin}
           max={ratioMax}
-          step={0.5}
+          step={1}
           value={ratio}
           onChange={(e) => onRatioChange(parseFloat(e.target.value))}
           style={{ '--progress': `${ratioProgress}%` }}
